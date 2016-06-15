@@ -28,7 +28,7 @@ def populate(time):
         limit = '&limit=all'
         output = '&output=json'
         total = url+date+limit+output
-        r = requests.get(total)
+        r = requests.get(total, verify=False)
         data = r.json()
         print "Starting population script:  %s" %(total)
         for item in data[0]['dates'][0]['items']:
