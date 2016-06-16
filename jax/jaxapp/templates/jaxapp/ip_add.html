@@ -11,16 +11,11 @@
      <div class = "container">
          <h3>Jomi Analytics</h3>
          <h4>{{ip_name}}</h4>
-         <h5>query results => total Unique Session ID's: {{count}} </h5>
-         <br>
-         {%for item in detail_form%}
-           <ul>
-           <li>session id:   {{item.si}}</li>
-           <li>ip address:   {{item.ip}}</li>
-           <li>time normal:  {{item.timep}}</li>
-           <li>location:     {{item.geol}}</li>
-           <p>____________</p>
-         </ul>
+         <h5>total unique ip addresses: {{count}}</h5>
+         <br></br>
+         {%for item in ip_details%}
+         <p>{{item.ip}}</p>
+         </ol>
          {% endfor %}
      <div>
       <script src = "https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
