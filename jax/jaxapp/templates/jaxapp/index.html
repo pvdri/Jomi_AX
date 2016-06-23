@@ -16,23 +16,42 @@
        <form action="detail" method="post">
          {% csrf_token %}
          {{dropdownform.as_p}}
-       <input type="submit" value="OK">
+       <input type="submit"  class="btn btn-primary" value="OK">
         </form>
         <br></br>
         <h4>summary query</h4>
         <form action="summary" method="post">
           {% csrf_token %}
           {{dropdownform.as_p}}
-        <input type="submit" value="OK">
+        <input type="submit" class="btn btn-primary" value="OK">
          </form>
         </form>
         <br></br>
+
          <h4>IP query</h4>
+
           <form action="ip_add" method="post">
              {% csrf_token %}
              {{dropdownform.as_p}}
-           <input type="submit" value="OK">
+           <input type="submit" class="btn btn-primary" value="OK">
+
          </form>
+         <br>
+         <br>
+         <h4>Search by IP addresses </h4>
+
+         <form action="ip_check" method="post">
+           {% csrf_token %}
+           {{anotherform.as_p}}
+          <br>
+          <p><b>NOTE:</b>  please make sure to enter in ClickyAPI format i.e: 216.165.126.0,216.165.126.255|216.165.127.0,216.165.126.255 </p>
+          <p>(1) no spaces, (2) the comma represents a range, (3) the pipe represents a new IP address number or range </p>
+<br>
+          <button type="submit" class="btn btn-primary">OK</button>
+          </form>
+
+          <br>
+          <br>
          </div>
       <script src = "https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
       <script src = "//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>

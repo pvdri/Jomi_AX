@@ -7,4 +7,5 @@ urlpatterns = [
     url(r'detail', views.detail, name='detail'),
     url(r'summary', views.summary, name='summary'),
     url(r'ip_add', views.ip_add, name='ip_add'),
+    url(r'ip_check', views.ip_check, name='ip_check'),
 ]
