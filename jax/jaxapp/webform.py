@@ -10,6 +10,4 @@ class orgform(forms.Form):
     organization = forms.ChoiceField(choice)
 
 class commentform(forms.Form):
-    content = forms.CharField(
-        widget=forms.Textarea
-    )
+    content = forms.CharField(widget=forms.TextInput(attrs={'size':75}))

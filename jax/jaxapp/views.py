@@ -63,13 +63,13 @@ def ip_check(request):
     if form_class.is_valid():
         raw_input = form_class.cleaned_data['content']
 
-    print "running script for ip addresses"
+    # print "running script for ip addresses"
     cleaned_input = raw_input.encode('utf8')
     # print type(cleaned_input)
     formatted_string = cleaned_input.replace(",", "-").replace("|", ",")
     # print formatted_string
     formatted_array = formatted_string.split(",")
-    print formatted_array
+    # print formatted_array
     ip_address_array = []
     for x in formatted_array:
         if "-" in x:
@@ -81,8 +81,24 @@ def ip_check(request):
                 ip_address_array.append(z)
         else:
             ip_address_array.append(x)
-    print ip_address_array
+    # print ip_address_array
+    print "THE ARRAY IS THIS LONG:" + str(len(ip_address_array))
 
+    print "SPLITTING ARRAY"
+
+    def split(orig_array, size):
+        split_array = []
+
+        while len(orig_array) > size:
+            oa = orig_array[:size]
+            split_array.append(oa)
+            orig_array = orig_array[size:]
+        split_array.append(orig_array)
+        return split_array
+
+
+    sa = split(ip_address_array, 10)
+    print sa
 
     monthly = det_ax.objects.values("month").distinct()
     yearly = det_ax.objects.values("year").distinct()
@@ -90,9 +106,12 @@ def ip_check(request):
     newdict = []
     for y in monthly:
         for z in yearly:
-            a = det_ax.objects.filter(ip__in=ip_address_array).filter(month=y["month"]).filter(year=z["year"]).count()
-            b = det_ax.objects.filter(ip__in=ip_address_array).filter(month=y["month"]).filter(year=z["year"]).values('ip').distinct()
-            if a > 0:
-                newdict.append([y["month"], " ", z["year"], " => ", " Unique: IPs: ", len(b), "/ Session IDs:  ", a])
-                print newdict
+            sum_count = []
+            for s in sa:
+                a = det_ax.objects.filter(ip__in=s).filter(month=y["month"]).filter(year=z["year"]).count()
+                sum_count.append(a)
+                # b = det_ax.objects.filter(ip__in=s).filter(month=y["month"]).filter(year=z["year"]).values('ip').distinct()
+            if sum(sum_count) > 0:
+                newdict.append([y["month"], " ", z["year"], " => ", "/ Session IDs:  ", sum(sum_count)])
+                # print newdict
     return render(request, 'jaxapp/ip_check.html', {"sum_dict" : newdict, "ip_array" : formatted_array})
